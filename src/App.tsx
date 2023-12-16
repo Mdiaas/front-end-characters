@@ -3,7 +3,7 @@ import { StyledContainer } from './components/Styles'
 import { Table } from './components/Table'
 import axios from 'axios';
 import { Loading } from './components/Loading';
-import { Form, SaveForm } from './components/SaveForm';
+import { SaveForm } from './components/SaveForm';
 import { Filter } from './components/Filter';
 
 export interface CharacterType {
@@ -30,12 +30,15 @@ function App() {
   };
 
   const loadCharacter = async () => {
+    if(searchId == "") {
+      return loadCharacters()
+    }
     try {
       const response = await axios.get('http://localhost:8080/characters/' + searchId);
-      console.log(response)
       setCharacters([response.data]);
     } catch (error) {
       console.error('failed to load server data:', error);
+      setCharacters([]);
     } finally {
       setLoading(false);
     }

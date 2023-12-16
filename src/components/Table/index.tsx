@@ -13,16 +13,19 @@ export function Table(props){
         </tr>
       </thead>
       <tbody>
-      
-      {characters.map((characters) => {
-        return (
-          <tr key={characters.id}>
-            <td width="25%">{characters.id}</td>
-            <td>{characters.name}</td>
-            <td><StyledButton onClick={() => deleteCharacter(characters.id)}>delete</StyledButton></td>
+      {characters.length > 0 ? (
+          characters.map((character) => (
+            <tr key={character.id}>
+              <td>{character.id}</td>
+              <td>{character.name}</td>
+              <td><StyledButton onClick={() => deleteCharacter(character.id)}>delete</StyledButton></td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="3">No data available</td>
           </tr>
-        )
-      })}
+        )}
       </tbody>
     </StyledTable>
   )
